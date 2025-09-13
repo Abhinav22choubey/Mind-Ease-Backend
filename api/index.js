@@ -7,12 +7,6 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 
-const Port = process.env.PORT || 4000;
-
-app.listen(Port, () => {
-  console.log(`Listening at Port ${Port}`);
-});
-
 let Allchat = {};
 
 // --------------------- CHAT ENDPOINT ---------------------
@@ -83,7 +77,6 @@ app.post("/mental-health", async (req, res) => {
     }],
   });
 
-  // Follow-up message to chatbot
   const followUpMsg = `Based on my PHQ-9 score of ${phqScore} (${phqSeverity}), I feel overwhelmed. Can you help me with emotional support or coping strategies?`;
 
   const ques = [
@@ -113,3 +106,7 @@ app.post("/mental-health", async (req, res) => {
     res.status(500).send({ error: message });
   }
 });
+
+// ❌ REMOVE app.listen()
+// ✅ EXPORT the app for Vercel
+module.exports = app;
