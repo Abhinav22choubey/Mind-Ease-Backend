@@ -1,0 +1,35 @@
+{
+  "name": "ai-chat-backend",
+  "version": "1.0.0",
+  "description": "Express backend for AI Chatting with Gemini API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "ai",
+    "chat",
+    "gemini"
+  ],
+  "author": "Abhinav Kumar Choubey",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.17.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhinav22choubey/Ai-Chat-Backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Abhinav22choubey/Ai-Chat-Backend/issues"
+  },
+  "homepage": "https://github.com/Abhinav22choubey/Ai-Chat-Backend#readme"
+}
