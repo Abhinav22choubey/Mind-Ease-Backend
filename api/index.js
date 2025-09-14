@@ -63,35 +63,16 @@ app.post("/mental-health", async (req, res) => {
   // 1. Calculate score
   const phqScore = phq9.reduce((a, b) => a + b, 0);
 
-  // 2. Severity + Suggestion
+  // 2. Severity only (✅ removed suggestion text)
   const getSeverity = (score) => {
-    if (score <= 4)
-      return [
-        "Minimal",
-        "Maintain healthy habits like sleep, hydration, and social connection.",
-      ];
-    if (score <= 9)
-      return [
-        "Mild",
-        "Try journaling, light exercise, and talking to a friend.",
-      ];
-    if (score <= 14)
-      return [
-        "Moderate",
-        "Consider mindfulness apps or speaking with a counselor.",
-      ];
-    if (score <= 19)
-      return [
-        "Moderately Severe",
-        "Professional support is recommended. Therapy can help.",
-      ];
-    return [
-      "Severe",
-      "Seek immediate help from a mental health professional or helpline.",
-    ];
+    if (score <= 4) return "Minimal";
+    if (score <= 9) return "Mild";
+    if (score <= 14) return "Moderate";
+    if (score <= 19) return "Moderately Severe";
+    return "Severe";
   };
 
-  const [phqSeverity, phqSuggestion] = getSeverity(phqScore);
+  const phqSeverity = getSeverity(phqScore);
 
   // 3. Build context message with PHQ-9 answers
   const phqSummary = `PHQ-9 answers: ${phq9.join(", ")}. \
@@ -103,7 +84,6 @@ Please give me emotional support and coping tips. \
 Keep your reply short (3–5 sentences), empathetic, encouraging, and vary wording. \
 Avoid clinical diagnosis. Do not mention being an AI.`;
 
-  // 4. Save in chat history
   Allchat[_id] = Allchat[_id] || [];
   Allchat[_id].push({
     role: "user",
@@ -123,11 +103,11 @@ Avoid clinical diagnosis. Do not mention being an AI.`;
       { role: "model", parts: [{ text: answer }] }
     );
 
+    // ✅ Only return score, severity, and AI response
     res.send({
       phq9: {
         score: phqScore,
         severity: phqSeverity,
-        suggestion: phqSuggestion,
       },
       followUpResponse: answer,
     });
