@@ -23,18 +23,23 @@ app.post("/chat", async (req, res) => {
   const history = Allchat[_id];
 
   const ques = [
-    ...history,
-    {
-      role: "user",
-      parts: [
-        {
-          text:
-            msg +
-            " Respond as a mental health support assistant for students. Be empathetic, encouraging, and avoid clinical diagnosis. Focus on emotional support, stress management, and academic pressure. Don't mention being an AI.",
-        },
-      ],
-    },
-  ];
+  ...history,
+  {
+    role: "user",
+    parts: [
+      {
+        text:
+          msg +
+          " Respond like a compassionate mental health support counselor for students. " +
+          "Keep replies short (3–5 sentences), empathetic, and practical. " +
+          "Offer coping strategies for stress, anxiety, and academic pressure. " +
+          "Give advice in the style of a psychological helper, but do not provide clinical diagnosis. " +
+          "Do not mention being a bot or AI."
+      },
+    ],
+  },
+];
+
 
   try {
     const answer = await main(ques);
